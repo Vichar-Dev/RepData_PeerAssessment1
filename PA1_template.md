@@ -1,14 +1,11 @@
 # Reproducible Research: Course Project 1
 
-```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
-library(ggplot2)
-library(scales)
-library(dplyr)
-```
+
 
 ## Load and preprocess the data
 ##### 1. Load the data (i.e. read.csv())
-```{r, results='markup', warning=TRUE, message=TRUE}                                                  
+
+```r
 unzipFile <- "activity.csv"
 downloadFile <- "activity.zip"
 
@@ -17,24 +14,33 @@ if(!file.exists(unzipFile)){
 } else {
     
 }
+```
 
+```
+## NULL
+```
+
+```r
 StepCountData <- read.csv(unzipFile)
 ```
 ##### 2. Process/transform the data (if necessary) into a format suitable for your analysis
-```{r}
+
+```r
 StepCountDataNotNA<-StepCountData[complete.cases(StepCountData),]
 ```
 
 -----
 
 ## What is mean total number of steps taken per day?
-```{r}
+
+```r
 StepsPerDay <- aggregate(StepCountDataNotNA$steps,by=list(StepCountDataNotNA$date),FUN="sum")
 names(StepsPerDay)<-c("interval","steps")
 ```
 
 ##### 1. Make a histogram of the total number of steps taken each day
-```{r}
+
+```r
 ggplot(StepsPerDay,aes(x=interval, y=steps))+
         geom_bar(stat="identity")+
         theme_bw()+
@@ -46,25 +52,30 @@ ggplot(StepsPerDay,aes(x=interval, y=steps))+
         geom_hline(yintercept = median(StepsPerDay$steps), color="red")
 ```
 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+
 ##### 2. Calculate and report the mean and median total number of steps taken per day
-```{r}
+
+```r
 meanStepsByDay <- mean(StepsPerDay$steps)
 medianStepsByDat <- median(StepsPerDay$steps)
 ```
-* Mean: `r meanStepsByDay`
-* Median:  `r medianStepsByDat`
+* Mean: 1.0766189 &times; 10<sup>4</sup>
+* Median:  10765
 
 -----
 
 ## What is the average daily activity pattern?
-```{r}
+
+```r
 AverageStepsPerInterval <- aggregate(StepCountDataNotNA$steps,by=list(StepCountDataNotNA$interval),FUN="mean")
 names(AverageStepsPerInterval)<-c("interval","steps")
 AverageStepsPerInterval$steps<-round(AverageStepsPerInterval$steps)
 ```
 
 ##### 1. Make a time series plot
-```{r}
+
+```r
 ggplot(AverageStepsPerInterval, aes(x=interval, y=steps)) + 
         geom_line() + 
         theme_bw()+
@@ -77,26 +88,31 @@ ggplot(AverageStepsPerInterval, aes(x=interval, y=steps)) +
                     max(AverageStepsPerInterval$interval), by = 60),1)) 
 ```
 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+
 ##### 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
-```{r}
+
+```r
 mostStepTime <- AverageStepsPerInterval$interval[which.max(AverageStepsPerInterval$steps)]
 ```
 
-* Most Steps at: `r mostStepTime`
+* Most Steps at: 835
 
 ----
 
 ## Imputing missing values
 ##### 1. Calculate and report the total number of missing values in the dataset 
-```{r}
+
+```r
 countMissingValues <- nrow(StepCountData)-nrow(StepCountDataNotNA)
 ```
 
-* Number of missing values: `r countMissingValues`
+* Number of missing values: 2304
 
 ##### 2. Devise a strategy for filling in all of the missing values in the dataset.
 ##### 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
-```{r}
+
+```r
 StepCountDataNA <- StepCountData[!complete.cases(StepCountData),]
 StepCountDataNA<-merge(x=StepCountDataNA, y=AverageStepsPerInterval,by=c("interval"),all.x = TRUE)
 StepCountDataNA <- StepCountDataNA[,c("interval","date","steps.y")]       
@@ -106,7 +122,8 @@ StepCountDataComplete <- rbind(StepCountDataNotNA,StepCountDataNA)
 
 
 ##### 4. Make a histogram of the total number of steps taken each day 
-```{r}
+
+```r
 StepsPerDayComplete <- aggregate(StepCountDataComplete$steps,by=list(StepCountDataComplete$date),FUN="sum")
     
 names(StepsPerDayComplete)<-c("interval","steps")
@@ -122,13 +139,16 @@ ggplot(StepsPerDayComplete,aes(x=interval, y=steps))+
         geom_hline(yintercept = median(StepsPerDayComplete$steps), color="red")
 ```
 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+
 ##### ... and Calculate and report the mean and median total number of steps taken per day. 
-```{r}
+
+```r
 meanStepsByDayImputed <- mean(StepsPerDayComplete$steps)
 medianStepsByDayImputed <- median(StepsPerDayComplete$steps)
 ```
-* Mean (Imputed): `r meanStepsByDayImputed`
-* Median (Imputed):  `r medianStepsByDayImputed`
+* Mean (Imputed): 1.0765639 &times; 10<sup>4</sup>
+* Median (Imputed):  1.0762 &times; 10<sup>4</sup>
 
 
 ----
@@ -136,15 +156,25 @@ medianStepsByDayImputed <- median(StepsPerDayComplete$steps)
 ## Are there differences in activity patterns between weekdays and weekends?
 ##### 1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
 
-```{r}
+
+```r
 StepCountDataComplete$wd<-weekdays(as.Date(StepCountDataComplete$date))
+```
+
+```
+## Warning in strptime(xx, f <- "%Y-%m-%d", tz = "GMT"): unknown timezone
+## 'default/Asia/Kolkata'
+```
+
+```r
 StepCountDataComplete$we = factor(ifelse(StepCountDataComplete$wd %in% c("Saturday", 
          "Sunday"), "weekend", "weekday"))
 ```
 
 ##### 2. Make a panel plot containing a time series plot
 
-```{r}
+
+```r
 AverageStepsPerInterval <- aggregate(StepCountDataComplete$steps,
          by=list(StepCountDataComplete$interval,StepCountDataComplete$we),FUN="mean")
     
@@ -161,3 +191,5 @@ ggplot(AverageStepsPerInterval, aes(x=interval, y=steps)) +
         ggtitle("Steps Per 5 min Interval")+
         ylab("Average Step Count")
 ```
+
+![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png)
