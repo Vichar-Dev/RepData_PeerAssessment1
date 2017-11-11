@@ -2,6 +2,7 @@
 
 
 
+
 ## Load and preprocess the data
 ##### 1. Load the data (i.e. read.csv())
 
@@ -52,7 +53,7 @@ ggplot(StepsPerDay,aes(x=interval, y=steps))+
         geom_hline(yintercept = median(StepsPerDay$steps), color="red")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 ##### 2. Calculate and report the mean and median total number of steps taken per day
 
@@ -60,7 +61,7 @@ ggplot(StepsPerDay,aes(x=interval, y=steps))+
 meanStepsByDay <- mean(StepsPerDay$steps)
 medianStepsByDat <- median(StepsPerDay$steps)
 ```
-* Mean: 1.0766189 &times; 10<sup>4</sup>
+* Mean: 1.0766189\times 10^{4}
 * Median:  10765
 
 -----
@@ -88,7 +89,7 @@ ggplot(AverageStepsPerInterval, aes(x=interval, y=steps)) +
                     max(AverageStepsPerInterval$interval), by = 60),1)) 
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 ##### 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -139,7 +140,7 @@ ggplot(StepsPerDayComplete,aes(x=interval, y=steps))+
         geom_hline(yintercept = median(StepsPerDayComplete$steps), color="red")
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 ##### ... and Calculate and report the mean and median total number of steps taken per day. 
 
@@ -147,8 +148,8 @@ ggplot(StepsPerDayComplete,aes(x=interval, y=steps))+
 meanStepsByDayImputed <- mean(StepsPerDayComplete$steps)
 medianStepsByDayImputed <- median(StepsPerDayComplete$steps)
 ```
-* Mean (Imputed): 1.0765639 &times; 10<sup>4</sup>
-* Median (Imputed):  1.0762 &times; 10<sup>4</sup>
+* Mean (Imputed): 1.0765639\times 10^{4}
+* Median (Imputed):  1.0762\times 10^{4}
 
 
 ----
@@ -192,4 +193,4 @@ ggplot(AverageStepsPerInterval, aes(x=interval, y=steps)) +
         ylab("Average Step Count")
 ```
 
-![plot of chunk unnamed-chunk-15](figure/unnamed-chunk-15-1.png)
+![](PA1_template_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
