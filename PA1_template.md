@@ -58,10 +58,10 @@ ggplot(StepsPerDay,aes(x=interval, y=steps))+
 ##### 2. Calculate and report the mean and median total number of steps taken per day
 
 ```r
-meanStepsByDay <- mean(StepsPerDay$steps)
-medianStepsByDat <- median(StepsPerDay$steps)
+meanStepsByDay <- as.integer(mean(StepsPerDay$steps))
+medianStepsByDat <- as.integer(median(StepsPerDay$steps))
 ```
-* Mean: 1.0766189\times 10^{4}
+* Mean: 10766
 * Median:  10765
 
 -----
@@ -145,11 +145,11 @@ ggplot(StepsPerDayComplete,aes(x=interval, y=steps))+
 ##### ... and Calculate and report the mean and median total number of steps taken per day. 
 
 ```r
-meanStepsByDayImputed <- mean(StepsPerDayComplete$steps)
-medianStepsByDayImputed <- median(StepsPerDayComplete$steps)
+meanStepsByDayImputed <- as.integer(mean(StepsPerDayComplete$steps))
+medianStepsByDayImputed <- as.integer(median(StepsPerDayComplete$steps))
 ```
-* Mean (Imputed): 1.0765639\times 10^{4}
-* Median (Imputed):  1.0762\times 10^{4}
+* Mean (Imputed): 10765
+* Median (Imputed):  10762
 
 
 ----

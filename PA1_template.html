@@ -160,10 +160,10 @@ names(StepsPerDay)&lt;-c(&quot;interval&quot;,&quot;steps&quot;)</code></pre>
 </div>
 <div id="calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day" class="section level5">
 <h5>2. Calculate and report the mean and median total number of steps taken per day</h5>
-<pre class="r"><code>meanStepsByDay &lt;- mean(StepsPerDay$steps)
-medianStepsByDat &lt;- median(StepsPerDay$steps)</code></pre>
+<pre class="r"><code>meanStepsByDay &lt;- as.integer(mean(StepsPerDay$steps))
+medianStepsByDat &lt;- as.integer(median(StepsPerDay$steps))</code></pre>
 <ul>
-<li>Mean: 1.076618910^{4}</li>
+<li>Mean: 10766</li>
 <li>Median: 10765</li>
 </ul>
 <hr />
@@ -236,11 +236,11 @@ ggplot(StepsPerDayComplete,aes(x=interval, y=steps))+
 </div>
 <div id="and-calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day." class="section level5">
 <h5>… and Calculate and report the mean and median total number of steps taken per day.</h5>
-<pre class="r"><code>meanStepsByDayImputed &lt;- mean(StepsPerDayComplete$steps)
-medianStepsByDayImputed &lt;- median(StepsPerDayComplete$steps)</code></pre>
+<pre class="r"><code>meanStepsByDayImputed &lt;- as.integer(mean(StepsPerDayComplete$steps))
+medianStepsByDayImputed &lt;- as.integer(median(StepsPerDayComplete$steps))</code></pre>
 <ul>
-<li>Mean (Imputed): 1.076563910^{4}</li>
-<li>Median (Imputed): 1.076210^{4}</li>
+<li>Mean (Imputed): 10765</li>
+<li>Median (Imputed): 10762</li>
 </ul>
 <hr />
 </div>
